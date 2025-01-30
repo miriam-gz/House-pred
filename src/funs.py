@@ -37,6 +37,8 @@ def preprocessing(df):
     df["year_sold"] = df["date"].dt.year
     df["month_sold"] = df["date"].dt.month
     df.drop(columns=["date"], inplace=True)
+    df = df[df['bedrooms'] != 0]
+    df = df[df['bathrooms'] != 0]
     df["house_age"] = df["year_sold"] - df["yr_built"]
     df["time_since_renovation"] = np.where(df["yr_renovated"] != 0, df["year_sold"] - df["yr_renovated"], 0)
     df["price_per_sqft"] = df["price"] / df["sqft_living"]
